@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
+:root {
+    --DarkBlue: hsl(209, 23%, 22%); /* (Dark Mode Elements) */
+    --VeryDarkBlue: hsl(207, 26%, 17%); /* (Dark Mode Background) */
+    --VeryDarkBlueText: hsl(200, 15%, 8%); /* (Light Mode Text) */
+    --DarkGray: hsl(0, 0%, 52%); /* (Light Mode Input) */
+    --VeryLightGray: hsl(0, 0%, 98%); /* (Light Mode Background) */
+    --White: hsl(0, 0%, 100%); /* (Dark Mode Text & Light Mode Elements) */
+
+    --HomeFontSize: 14px;
+    --DetailsFontSize: 16px;
+}
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: 'Nunito Sans', sans-serif !important;
+    background-color: var(--VeryLightGray);
+    color: var(--VeryDarkBlueText);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.fw300 { font-weight: 300; }
+.fw600 { font-weight: 600; }
+.fw800 { font-weight: 800; }
+
+/* Dark Mode */
+
+body.dark {
+    background-color: var(--VeryDarkBlue);
+    color: var(--White);
+}
+
+body.dark .toggle-btn { color: var(--White); }
+body.dark #regionDropBtn { color: var(--White); }
+body.dark .dropdown-item { color: var(--White); }
+body.dark .dropdown-item:hover { background-color: var(--VeryDarkBlue); }
+body.dark input.form-control, body.dark .dropdown, body.dark .dropdown-menu { background-color: var(--DarkBlue); }
+
+/* End Dark Mode */
+header {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .1);
+    height: 70px;
+}
+
+main {
+    width: 100%;
+    height: calc(100% - 70px);
+}
+
+main .container .row .col-sm-6 input, main #regionDropBtn {
+    padding: .5rem;
+    border: none;
+    outline: none;
+    border-radius: .25rem !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .1);
+    min-width: 10rem;
+    position: relative;
+}
+
+main .container .row .col-sm-6:nth-child(1) > div {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+} 
+
+main .container .row .col-sm-6:nth-child(1) > div span {
+    position: absolute;
+    z-index: 1;
+    left: .5rem;
+    top: .5rem;
+}
+
+main .container .row .col-sm-6 > div input { 
+    min-width: 20rem;
+    padding-left: 2rem; 
+}
+
+main .countries-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 1rem;
+}
+
+.countries-card {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    border-radius: .25rem;
+    background-color: var(--white);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.countries-card .countries-img {
+    width: 100%;
+    height: 75%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.countries-card .countries-img img { border-radius: .25rem .25rem 0 0; width: 100%;}
+.countries-card .countries-card-details { padding: 1rem; }
+
+.countries-card .countries-card-details .countries-stats { 
+    font-weight: lighter; 
+    font-size: var(--DetailsFontSize);
+}
