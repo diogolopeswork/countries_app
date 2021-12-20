@@ -3,7 +3,7 @@ $(function () {
     addContinents()
 
     $(document).on('click', '.toggle-btn', function (e) {
-        $('body').toggleClass('dark', 500, 'linear')
+        $('body').toggleClass('dark', 'slow', 'linear')
     })
 
     $('#search-country').keyup(function (e) {
@@ -34,7 +34,7 @@ function getData(val) {
 }
 
 function addContinents() {
-    let arr = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+    let arr = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
 
     for (let i = 0; i < arr.length; i++) {
         let elem = $(`
@@ -54,8 +54,8 @@ function addCountriesData(data) {
         let cContinent = cCat.region
         let cCapital = cCat.capital
 
-        let elem = $(`
-            <div class="col m-3" data-target="${cName}">
+        let card = $(`
+            <div class="col m-3" data-target="${cName}" data-bs-toggle="modal" data-bs-target="#countriesModal">
                 <div class="countries-card">
                     <div class="countries-img"><img src="${cFlag}" alt=""></div>
                     <div class="countries-card-details">
@@ -67,7 +67,27 @@ function addCountriesData(data) {
                 </div>
             </div>
         `)
-        $(row).append(elem)
+        $(row).append(card)
     }
     $('.countries-content').append(row)
+
+    let modal = $(`
+        <div class="modal fade" id="countriesModal"" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `)
 }
