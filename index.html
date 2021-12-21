@@ -32,9 +32,9 @@
     </header>
 
     <main>
-        <div class="container">
+        <div class="container countries-container">
             <div class="row g-0 w-100 p-3">
-                <div class="col-sm-6 d-flex align-items-center">
+                <div class="col-sm-6 d-flex align-items-center search-container">
                     <div>
                         <span><i class="fas fa-search"></i></span>
                         <input type="text" id="search-country" name="searchCountry"
@@ -42,7 +42,7 @@
                         <p class="err-msg"></p>
                     </div>
                 </div>
-                <div class="col-sm-6 d-flex align-items-center justify-content-end">
+                <div class="col-sm-6 d-flex align-items-center justify-content-end filter-container">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="regionDropBtn" data-bs-toggle="dropdown"
                             aria-expanded="false">Filter by Region</button>
@@ -54,8 +54,26 @@
             <div class="countries-content"></div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal-container"></div>
+        <div class="countries-modal">
+            <div class="container mt-3">
+                <div class="row g-0 w-100 p-3">
+                    <div class="col-12">
+                        <button class="prev-btn btn">
+                            <i class="fas fa-long-arrow-left"></i>
+                            <span>Back</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="countries-modal-content">
+                    <div class="row w-100 p-3">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6">
+                            <h1>teste</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
 

@@ -15,14 +15,31 @@ $(function () {
         }
     })
 
-    $(document).on('click', '.countries-content .col', function(e) {
+    /* $(document).on('click', '.countries-content .col', function (e) {
         let target = $(this).data('target')
-        console.log(target)
+
+        $('.countries-container').hide('slide', {
+            direction: 'right'
+        }, 300)
+
+        $('.countries-modal').show('slide', {
+            direction: 'left'
+        }, 500)
     })
+
+    $(document).on('click', '.prev-btn', function (e) {
+        $('.countries-container').show('slide', {
+            direction: 'right'
+        }, 300)
+
+        $('.countries-modal').hide('slide', {
+            direction: 'left'
+        }, 500)
+    }) */
 })
 
 function getData(val) {
-    if($('#search-country').val() == '') {
+    if ($('#search-country').val() == '') {
         $.get(`https://restcountries.com/v3.1/all`)
             .then(response => addCountriesData(response))
     } else {
@@ -47,15 +64,15 @@ function addContinents() {
 function addCountriesData(data) {
     let row = $(`<div class="row countries-row"></div>`)
 
-    for (let cCat of data) {
-        let cFlag = cCat.flags.png
-        let cName = cCat.name.common
-        let cPopulation = cCat.population
-        let cContinent = cCat.region
-        let cCapital = cCat.capital
+    for (let i = 0; i < data.length; i++) {
+        let cFlag = data[i].flags.png
+        let cName = data[i].name.common
+        let cPopulation = data[i].population
+        let cContinent = data[i].region
+        let cCapital = data[i].capital
 
         let card = $(`
-            <div class="col m-3" data-target="${cName}" data-bs-toggle="modal" data-bs-target="#countriesModal">
+            <div class="col m-3" data-target="${cName}">
                 <div class="countries-card">
                     <div class="countries-img"><img src="${cFlag}" alt=""></div>
                     <div class="countries-card-details">
@@ -68,27 +85,6 @@ function addCountriesData(data) {
             </div>
         `)
         $(row).append(card)
-
-        let modal = $(`
-            <div class="modal fade ${cName}" id="countriesModal"" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">${cName}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `)
-        $('.modal-container').append(modal)
     }
     $('.countries-content').append(row)
 }
