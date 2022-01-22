@@ -39,15 +39,12 @@ img {
 
 /* Dark Mode */
 
-/* body.dark {
-    background-color: var(--VeryDarkBlue);
-    color: var(--White);
-} */
-
-/* body.dark .toggle-btn, body.dark #regionDropBtn, body.dark .dropdown-item, body.dark .prev-btn  { color: var(--White); }
+body.dark { background-color: var(--VeryDarkBlue); color: var(--White); }
+body.dark .toggle-btn, body.dark #regionDropBtn, body.dark .dropdown-item, body.dark .prev-btn, body.dark .countries-card,
+body.dark #search-country::placeholder { color: var(--White); }
 body.dark .dropdown-item:hover { background-color: var(--VeryDarkBlue); }
 body.dark input.form-control, body.dark .dropdown, body.dark .dropdown-menu, 
-body.dark .countries-modal, body.dark .prev-btn { background-color: var(--DarkBlue); } */
+body.dark .countries-modal, body.dark .prev-btn, body.dark .countries-card { background-color: var(--DarkBlue); }
 
 /* End Dark Mode */
 
@@ -99,14 +96,13 @@ main {
     width: 100%;
     height: 100%;
     position: relative;
-    padding: 1rem;
 }
 
 .dropdown-item { text-transform: capitalize; }
 
 .countries-card {
     position: relative;
-    width: 250px;
+    width: 260px;
     height: 300px;
     border-radius: .25rem;
     background-color: var(--white);
@@ -114,24 +110,35 @@ main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
     cursor: pointer;
-    text-decoration: none;
     color: var(--VeryDarkBlueText);
 }
 
-.countries-img {
+.countries-card-top {
     width: 100%;
-    height: 75%;
-    position: relative;
+    height: 50%;
     overflow: hidden;
+    position: relative;
+    background-color: rebeccapurple;
 }
 
-.countries-img img { border-radius: .25rem .25rem 0 0; width: 100%;}
-.countries-card-details { padding: 1rem; }
+.countries-card-top img { 
+    border-radius: .25rem .25rem 0 0; 
+    width: 100%;
+    height: 100%;
+}
 
-.countries-stats { 
-    font-weight: lighter; 
-    font-size: var(--DetailsFontSize);
+.countries-card-bottom {
+    width: 100%;
+    height: 50%;
+    padding: .5rem 1rem;
+}
+
+.countries-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* 

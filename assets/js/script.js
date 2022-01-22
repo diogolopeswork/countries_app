@@ -1,6 +1,6 @@
 $(function () {
     getData()
-    // addContinents()
+    addContinents()
 
     $(document).on('click', '.toggle-btn', function (e) {
         $('body').toggleClass('dark', 'slow', 'linear')
@@ -9,10 +9,9 @@ $(function () {
     $('#search-country').keyup(function (e) {
         if (e.which == 13) {
             let val = $('#search-country').val()
-            getData(val)
-        } else if ($('#search-country').val() == '') {
-            getData()
+            getCountry(val)
         }
+        
     })
 
     /* $(document).on('click', '.countries-content .col', function (e) {
@@ -38,33 +37,46 @@ $(function () {
     }) */
 })
 
-function getData(val) {
+function getData() {
     $.get('https://restcountries.com/v3.1/all')
-        .done(function(data) {
-            for(let i = 0; i < 10; i++) {
-                addCountry(data[i])
-            }
+        .then(function(data) {
+            addCountriesData(data)
         })
-        .fail(function() {
-            let elem = $(`
-                <div class="err-fetch">
-                    <h2 class="text-danger">Could not load countries</h2>
-                </div>
-            `)
-            $('.countries-content').append(elem)
-        })
-/*     if ($('#search-country').val() == '') {
-        $.get(`https://restcountries.com/v3.1/all`)
-            .then(response => addCountriesData(response))
-    } else {
-        $.get(`https://restcountries.com/v3.1/name/${val}`)
-            .then(response => addCountriesData(response))
-    } */
 
-    /* $('.countries-content').empty() */
+        .fail(function() {
+            displayError(msg = "Couldn't Load The Countries!")
+        })
 }
 
-function addCountry(country) {
+function getCountry(val) {
+    if ($('#search-country').val() !== '') {
+        $.get(`https://restcountries.com/v3.1/name/${val}`)
+            .then(response => addCountriesData(response))
+
+            .fail(function() {
+                displayError(msg = "Couldn't Find The Country!")
+            })
+    } else {
+        displayError(msg = "Couldn't Find The Country!")
+    }
+
+    $('.countries-content').empty()
+}
+
+function displayError(msg) {
+    let elem = $(`
+        <div class="err-fetch px-3">
+            <h6 class="text-danger">${msg}</h2>
+        </div>
+    `)
+
+    if($('.err-fetch').length >= 1) {
+        $('.err-fetch').first().remove()
+    }
+    $('.countries-container').append(elem)
+}
+
+/* function addCountry(country) {
     let row = $(`<div class="row countries-row w-100"></div>`)
     let card = $(`
         <div class="col m-3" data-target="${country.alpha3Code}">
@@ -79,11 +91,11 @@ function addCountry(country) {
             </div>
         </div>
     `)
-    $(row).append(card)
     $('.countries-content').append(row)
-}
+    $(row).append(card)
+} */
 
-/* function addContinents() {
+function addContinents() {
     let arr = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
 
     for (let i = 0; i < arr.length; i++) {
@@ -92,9 +104,9 @@ function addCountry(country) {
         `)
         $('.dropdown-menu').append(elem)
     }
-} */
+}
 
-/* function addCountriesData(data) {
+function addCountriesData(data) {
     let row = $(`<div class="row countries-row"></div>`)
 
     for (let i = 0; i < data.length; i++) {
@@ -105,19 +117,38 @@ function addCountry(country) {
         let cCapital = data[i].capital
 
         let card = $(`
-            <div class="col m-3" data-target="${cName}">
+            <div class="col m-3 data-target="${cName}">
                 <div class="countries-card">
-                    <div class="countries-img"><img src="${cFlag}" alt=""></div>
-                    <div class="countries-card-details">
+                    <div class="countries-card-top">
+                        <img src="${cFlag}" alt="${cFlag}">
+                    </div>
+                    <div class="countries-card-bottom">
                         <h5 class="countries-name fw800 mt-3">${cName}</h5>
-                        <p class="countries-details fw600 m-0">Population: <span class="countries-stats">${cPopulation}</span></p>
-                        <p class="countries-details fw600 m-0">Region: <span class="countries-stats">${cContinent}</span></p>
-                        <p class="countries-details fw600 m-0">Capital: <span class="countries-stats">${cCapital}</span></p>
+                        <p class="countries-details fw600 m-0">Population: <span class="countries-stats fw-lighter">${cPopulation.toLocaleString()}</span></p>
+                        <p class="countries-details fw600 m-0">Region: <span class="countries-stats fw-lighter">${cContinent}</span></p>
+                        <p class="countries-details fw600 m-0">Capital: <span class="countries-stats fw-lighter">${cCapital}</span></p>
                     </div>
                 </div>
             </div>
         `)
+    /*     let card = $(`
+            <div class="col m-3" data-target="${cName}">
+                <div class="countries-card">
+                    <div class="countries-card-top>
+                        <img src="${cFlag}" alt="">
+                    </div>
+                    <div class="countries-card-bottom>
+                        <div class="countries-card-details">
+                            <h5 class="countries-name fw800 mt-3">${cName}</h5>
+                            <p class="countries-details fw600 m-0">Population: <span class="countries-stats">${cPopulation}</span></p>
+                            <p class="countries-details fw600 m-0">Region: <span class="countries-stats">${cContinent}</span></p>
+                            <p class="countries-details fw600 m-0">Capital: <span class="countries-stats">${cCapital}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `) */
         $(row).append(card)
     }
-    $('.countries-content').append(row)
-} */
+    $('.countries-content').prepend(row)
+}
