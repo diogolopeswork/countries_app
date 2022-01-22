@@ -141,7 +141,7 @@ main {
     white-space: nowrap;
 }
 
-/* 
+
 .countries-modal {
     background-color: var(--white);
     position: absolute;
@@ -170,4 +170,4 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-} */
+}
