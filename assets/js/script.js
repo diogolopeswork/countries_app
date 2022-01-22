@@ -13,13 +13,14 @@ $(function () {
         }
     })
 
-    $(document).on('click', 'a.dropdown-item', function(e) {
+    $(document).on('click', 'a.dropdown-item', function (e) {
         let val = $(this).data('target')
         filterRegion(val)
     })
 
     $(document).on('click', '.countries-content .col', function (e) {
-        let target = $(this).data('target')
+        let target = $('.countries-card').data('target')
+        modalData(target)
 
         $('.countries-container').hide('slide', {
             direction: 'right'
@@ -43,11 +44,11 @@ $(function () {
 
 function getData() {
     $.get('https://restcountries.com/v3.1/all')
-        .then(function(data) {
+        .then(function (data) {
             addCountriesData(data)
         })
 
-        .fail(function() {
+        .fail(function () {
             displayError(msg = "Couldn't Load The Countries!")
         })
 }
@@ -55,11 +56,11 @@ function getData() {
 function getCountry(val) {
     if ($('#search-country').val() !== '') {
         $.get(`https://restcountries.com/v3.1/name/${val}`)
-            .then(function(response) {
+            .then(function (response) {
                 addCountriesData(response)
             })
-
-            .fail(function() {
+            
+            .fail(function () {
                 displayError(msg = "Couldn't Find The Country!")
             })
     } else {
@@ -75,14 +76,14 @@ function getCountry(val) {
 
 function filterRegion(val) {
     $.get(`https://restcountries.com/v3.1/region/${val}`)
-        .then(function(data) {
+        .then(function (data) {
             addCountriesData(data)
         })
 
-        .fail(function() {
+        .fail(function () {
             displayError(msg = "Couldn't Load The Countries!")
         })
-        
+
     $('.countries-content').empty()
 }
 
@@ -99,6 +100,7 @@ function addContinents() {
 
 function addCountriesData(data) {
     let row = $(`<div class="row countries-row"></div>`)
+    console.log(data)
 
     for (let i = 0; i < data.length; i++) {
         let cFlag = data[i].flags.png
@@ -108,8 +110,8 @@ function addCountriesData(data) {
         let cCapital = data[i].capital
 
         let card = $(`
-            <div class="col m-3 data-target="${cName}">
-                <div class="countries-card">
+            <div class="col m-3">
+                <div class="countries-card" data-target="${data[i].alpha3Code}">
                     <div class="countries-card-top">
                         <img src="${cFlag}" alt="${cFlag}">
                     </div>
@@ -134,8 +136,12 @@ function displayError(msg) {
         </div>
     `)
 
-    if($('.err-fetch').length >= 1) {
+    if ($('.err-fetch').length >= 1) {
         $('.err-fetch').first().remove()
     }
     $('.countries-container').append(elem)
+}
+
+function modalData(data) {
+    console.log(data)
 }
