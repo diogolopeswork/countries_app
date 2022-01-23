@@ -39,6 +39,8 @@ $(function () {
         $('.countries-modal').hide('slide', {
             direction: 'left'
         }, 500)
+
+        $('.countries-modal-content').empty()
     })
 })
 
@@ -153,17 +155,49 @@ function modalData(data) {
         .then(function (response) {
             let cFlag = response[0].flags.png
             let cName = response[0].name.common
-            let cNativeName = response[0].name.nativeName
+            let cPopulation = response[0].population
             let cRegion = response[0].region
             let cSubRegion = response[0].subregion
             let cCapital = response[0].capital[0]
             let cDomain = response[0].tld[0]
             let cCurrency = response[0].currencies
             let cLanguages = response[0].languages
-            
-            console.log('Response:', response)
-            $('.modal-country-flag').append(`<img src="${cFlag}">`)
+            let cBorders = response[0].borders.join(', ')
 
+            let cLangs = Object.keys(cLanguages).map(function(key, index) { 
+                return cLanguages[key] 
+            }).join(', ')
+
+            let cCurrencies = Object.keys(cCurrency).map(function(key, index) { 
+                return cCurrency[key].name
+            }).join(', ')
+
+            let elem = $(`
+                <div class="row w-100 p-3">
+                    <div class="col-sm-6 modal-country-flag d-flex flex-column align-items-start justify-content-start">
+                        <img src="${cFlag}">
+                    </div>
+                    <div class="col-sm-6 d-flex flex-column align-items-start justify-content-start p-3">
+                        <h3 class="modal-country-name fw600">${cName}</h3>
+                        <div class="row w-100">
+                        <div class="col-6 mt-3">
+                            <h6 class="fw600 pt-2">Population: <span class="fw-lighter">${cPopulation.toLocaleString()}</span></h6>
+                            <h6 class="fw600 pt-2">Region: <span class="fw-lighter">${cRegion}</span></h6>
+                            <h6 class="fw600 pt-2">Sub Region: <span class="fw-lighter">${cSubRegion}</span></h6>
+                            <h6 class="fw600 pt-2">Capital: <span class="fw-lighter">${cCapital}</span></h6>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <h6 class="fw600 pt-2">Top Level Domain: <span class="fw-lighter">${cDomain}</span></h6>
+                            <h6 class="fw600 pt-2">Currencies: <span class="fw-lighter">${cCurrencies}</span></h6>
+                            <h6 class="fw600 pt-2">Languages: <span class="fw-lighter">${cLangs}</span></h6>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="fw600 pt-4">Border Countries: ${cBorders}</h6>
+                        </div>
+                    </div>
+                </div>
+            `)
+            $('.countries-modal-content').append(elem)
         })
 
         .fail(function () {
