@@ -18,8 +18,8 @@ $(function () {
         filterRegion(val)
     })
 
-    $(document).on('click', '.countries-content .col', function (e) {
-        let target = $('.countries-card').data('target')
+    $(document).on('click', '.countries-card', function (e) {
+        let target = $(this).data('target')
         modalData(target)
 
         $('.countries-container').hide('slide', {
@@ -100,7 +100,6 @@ function addContinents() {
 
 function addCountriesData(data) {
     let row = $(`<div class="row countries-row"></div>`)
-    console.log(data)
 
     for (let i = 0; i < data.length; i++) {
         let cFlag = data[i].flags.png
@@ -108,10 +107,15 @@ function addCountriesData(data) {
         let cPopulation = data[i].population
         let cContinent = data[i].region
         let cCapital = data[i].capital
+        let cCode = data[i].cca3
+        
+        if(cCapital == undefined) {
+            cCapital = 'N/A'
+        }
 
         let card = $(`
             <div class="col m-3">
-                <div class="countries-card" data-target="${data[i].alpha3Code}">
+                <div class="countries-card" data-target="${cCode}">
                     <div class="countries-card-top">
                         <img src="${cFlag}" alt="${cFlag}">
                     </div>
@@ -136,12 +140,33 @@ function displayError(msg) {
         </div>
     `)
 
-    if ($('.err-fetch').length >= 1) {
-        $('.err-fetch').first().remove()
-    }
+    setTimeout(() => {
+        if ($('.err-fetch').length >= 1) {
+            $('.err-fetch').first().remove()
+        }
+    }, 3000)
     $('.countries-container').append(elem)
 }
 
 function modalData(data) {
-    console.log(data)
+    $.get(`https://restcountries.com/v3.1/alpha/${data}`)
+        .then(function (response) {
+            let cFlag = response[0].flags.png
+            let cName = response[0].name.common
+            let cNativeName = response[0].name.nativeName
+            let cRegion = response[0].region
+            let cSubRegion = response[0].subregion
+            let cCapital = response[0].capital[0]
+            let cDomain = response[0].tld[0]
+            let cCurrency = response[0].currencies
+            let cLanguages = response[0].languages
+            
+            console.log('Response:', response)
+            $('.modal-country-flag').append(`<img src="${cFlag}">`)
+
+        })
+
+        .fail(function () {
+            displayError(msg = "Couldn't Find The Country!")
+        })
 }
