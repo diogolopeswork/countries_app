@@ -162,7 +162,7 @@ function modalData(data) {
             let cDomain = response[0].tld[0]
             let cCurrency = response[0].currencies
             let cLanguages = response[0].languages
-            let cBorders = response[0].borders.join(', ')
+            let cBorders = response[0].borders.join(' ,')
 
             let cLangs = Object.keys(cLanguages).map(function(key, index) { 
                 return cLanguages[key] 
@@ -180,13 +180,13 @@ function modalData(data) {
                     <div class="col-sm-6 d-flex flex-column align-items-start justify-content-start p-3">
                         <h3 class="modal-country-name fw600">${cName}</h3>
                         <div class="row w-100">
-                        <div class="col-6 mt-3">
+                        <div class="col-lg-6 mt-3">
                             <h6 class="fw600 pt-2">Population: <span class="fw-lighter">${cPopulation.toLocaleString()}</span></h6>
                             <h6 class="fw600 pt-2">Region: <span class="fw-lighter">${cRegion}</span></h6>
                             <h6 class="fw600 pt-2">Sub Region: <span class="fw-lighter">${cSubRegion}</span></h6>
                             <h6 class="fw600 pt-2">Capital: <span class="fw-lighter">${cCapital}</span></h6>
                         </div>
-                        <div class="col-6 mt-3">
+                        <div class="col-lg-6 mt-3">
                             <h6 class="fw600 pt-2">Top Level Domain: <span class="fw-lighter">${cDomain}</span></h6>
                             <h6 class="fw600 pt-2">Currencies: <span class="fw-lighter">${cCurrencies}</span></h6>
                             <h6 class="fw600 pt-2">Languages: <span class="fw-lighter">${cLangs}</span></h6>

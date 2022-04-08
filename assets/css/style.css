@@ -106,6 +106,11 @@ main {
     padding-left: 2rem;
 }
 
+.filter-container {
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .countries-content {
     width: 100%;
     height: 100%;
@@ -175,4 +180,46 @@ main {
 }
 
 .modal-country-flag img { width: 75%; }
+
+@media screen and (min-width:375px) {
+    .app-title { font-size: 1rem; }
+
+    .filter-container {
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 1rem;
+    }
+
+    .countries-content, .countries-row, .countries-modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-country-flag img { width: 100%; }
+    .modal-country-name { font-weight: 800; }
+}
+
+@media screen and (min-width:768px) {
+    .app-title { font-size: 1rem; }
+
+    .filter-container {
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 0rem;
+    }
+
+    .countries-content, .countries-row, .countries-modal-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    .modal-country-flag img { width: 85%; }
+
+}
 
